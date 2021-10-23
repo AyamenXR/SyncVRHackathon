@@ -105,3 +105,27 @@ Received Import Request.
 Start importing Assets/_TerrainAutoUpgrade/layer_grass01b3407d0e55802f81.terrainlayer using Guid(f65437d3e7d1a447cb620751f68d1026) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2cf1520daf2e6a251d966e20a3bc425') in 0.003407 seconds
   Import took 0.006466 seconds .
 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003350 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.218 seconds
+Platform modules already initialized, skipping
+Switching build target platform(2) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(524294) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.50 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1736 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 172.3 MB.
+System memory in use after: 172.4 MB.
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 2247.
+Total: 2.277036 ms (FindLiveObjects: 0.208792 ms CreateObjectMapping: 0.060593 ms MarkObjects: 1.928171 ms  DeleteObjects: 0.078216 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  requireTextureImportCompression: false -> true
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
