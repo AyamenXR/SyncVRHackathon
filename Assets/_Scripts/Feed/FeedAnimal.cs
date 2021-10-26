@@ -11,8 +11,4 @@ public class FeedAnimal : MonoBehaviour
        // _particleCollision = GameObject.FindGameObjectWithTag("FeedParticle").GetComponent<ParticleCollision>();
     }
 
-    public void FinishEating()
-    {
-        GetComponent<Animator>().SetBool("Eat", false);
-    }
 }

@@ -39,8 +39,8 @@ public class ChickController : MonoBehaviour
             float randomSec = Random.Range(5, 15);
             yield return new WaitForSeconds(randomSec);
 
-            if (!_animator.GetBool("Eat"))
-            {
+            //if (!_animator.GetBool("Eat"))
+            //{
                 _animator.SetBool("Walk", true);
                 _isWalking = true;
 
@@ -48,7 +48,7 @@ public class ChickController : MonoBehaviour
 
                 _animator.SetBool("Walk", false);
                 _isWalking = false;
-            }
+            //}
 
         }
 

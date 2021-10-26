@@ -18,11 +18,11 @@ public class ParticleCollision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Chick") || other.gameObject.CompareTag("Chicken"))
         {
-            if (!other.gameObject.GetComponent<Animator>().GetBool("Walk"))
-            {
-                other.gameObject.GetComponent<Animator>().SetBool("Eat", true);
+            //if (!other.gameObject.GetComponent<Animator>().GetBool("Walk"))
+            //{
+                other.gameObject.GetComponent<Animator>().SetTrigger("Eat");
 
-            }
+            //}
         }
 
         //Count++;
