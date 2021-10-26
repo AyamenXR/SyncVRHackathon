@@ -4,34 +4,35 @@ using UnityEngine;
 
 public class ParticleCollision : MonoBehaviour
 {
-    //public int count;
-    private GameObject chick;
-    private GameObject chicken;
-
+    public HeartSpawner heartSpawner;
+    //public int feedCount;
     
     void Start()
     {
-        //count = 0;
+        //feedCount = 0;
+    }
+
+    private void Update()
+    {
+        //Debug.Log(feedCount);
     }
 
     private void OnParticleCollision(GameObject other)
     {
         if (other.gameObject.CompareTag("Chick") || other.gameObject.CompareTag("Chicken"))
         {
-            //if (!other.gameObject.GetComponent<Animator>().GetBool("Walk"))
-            //{
                 other.gameObject.GetComponent<Animator>().SetTrigger("Eat");
+                heartSpawner.SpawnHeart(other);
 
-            //}
+                //Count++;
+                GameManager.FeedAnimal();
         }
 
-        //Count++;
-        //Destroy(this.gameObject);
     }
 
     //public int Count
     //{
-    //    get { return count; }
-    //    private set { count = value; }
+    //    get { return feedCount; }
+    //    private set { feedCount = value; }
     //}
 }
