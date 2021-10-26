@@ -7,6 +7,9 @@ TagManager:
   - Chick
   - Chicken
   - FeedParticle
+  - FeedManager
+  - Hand
+  - HeartSpawner
   layers:
   - Default
   - TransparentFX

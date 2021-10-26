@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class ParticleCollision : MonoBehaviour
 {
-    public HeartSpawner heartSpawner;
+    private HeartSpawner heartSpawner;
     //public int feedCount;
     
     void Start()
     {
         //feedCount = 0;
+        heartSpawner = GameObject.FindGameObjectWithTag("HeartSpawner").GetComponent<HeartSpawner>();
     }
 
     private void Update()

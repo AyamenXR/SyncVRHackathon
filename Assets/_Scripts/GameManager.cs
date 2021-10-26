@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
         //{
             feedScore += 1;
             WhenAnimalFed();
-            Debug.Log(feedScore);
         //}
     }
 

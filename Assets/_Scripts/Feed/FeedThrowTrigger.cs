@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FeedSackTrigger : MonoBehaviour
+public class FeedThrowTrigger : MonoBehaviour
 {
     private FeedManager _feedManager;
 
@@ -10,20 +10,17 @@ public class FeedSackTrigger : MonoBehaviour
     void Start()
     {
         _feedManager = GameObject.FindGameObjectWithTag("FeedManager").GetComponent<FeedManager>();
-        _feedManager.isThrown = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(_feedManager.isThrown)
+        if (!_feedManager.isThrown)
         {
-            if (other.gameObject.CompareTag("LeftHand") || other.gameObject.CompareTag("RightHand"))
+            if (other.gameObject.CompareTag("LeftHand") || other.gameObject.CompareTag("RightHand") )
             {
-                _feedManager.SpawnFeed(other.gameObject.tag);
+                _feedManager.ThrowFeed(other.gameObject.tag);
             }
         }
 
     }
-
-
 }
