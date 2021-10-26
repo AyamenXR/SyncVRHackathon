@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChickController : MonoBehaviour
+public class AnimalController : MonoBehaviour
 {
-    public float chickSpeed = 0.5f;
+    public float walkSpeed = 0.5f;
 
     private Animator _animator;
     private GameManager gameManager;
@@ -22,7 +22,7 @@ public class ChickController : MonoBehaviour
     {
         if (_isWalking)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * chickSpeed);
+            transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
         }
 
     }
