@@ -7,7 +7,7 @@ public class AnimalController : MonoBehaviour
     public float walkSpeed = 0.5f;
 
     private Animator _animator;
-    private GameManager gameManager;
+    //private GameManager gameManager;
     private bool _isWalking;
 
     // Start is called before the first frame update

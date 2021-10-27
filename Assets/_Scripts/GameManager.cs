@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,35 +24,59 @@ public class GameManager : MonoBehaviour
     public static GameState eGameStatus;
 
     //UnityEvents
-    [Header("Game structure Events")]
-    public UnityEvent onStartActivated;
+    [Header("Feeding")]
+    public UnityEvent onAwake;
+    //public UnityEvent onStartActivated;
     public UnityEvent onFeedingStarted;
-    //public UnityEvent onSortingSelected;
+    public UnityEvent onFeedingCompleted;
 
+    [Header("Sorting")]
+    public UnityEvent onSortingStarted;
+
+    public UnityEvent onReset;
+
+    //Feeding
     private void Start()
     {
         eGameStatus = GameState.Intro;
-        onStartActivated.Invoke();
+        onAwake.Invoke();
 
         feedScore = 0;
     }
 
-    public void startFeeding()//called from button
+    //public void OnStartSelect()
+    //{
+    //    onStartActivated.Invoke();
+    //}
+
+    public void StartFeeding()//called from UI Start Feeding panel button
     {
         eGameStatus = GameState.Feeding;
         onFeedingStarted.Invoke();
     }
 
-
-
     public static void FeedAnimal()
     {
-        //if(eGameStatus == GameState.Feeding)
-        //{
+        if (eGameStatus == GameState.Feeding)
+        {
             feedScore += 1;
             WhenAnimalFed();
-        //}
+        }
     }
+
+    public void CompleteFeedAnimal()//called from FeedManager.cs
+    {
+        onFeedingCompleted.Invoke();
+    }
+
+    //Sorting
+    public void StartSorting()//called from UI Complete Feeding Panel Button
+    {
+        onSortingStarted.Invoke();
+    }
+
+
+
 
     public void Reset()
     {

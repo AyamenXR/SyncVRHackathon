@@ -10,19 +10,22 @@ TagManager:
   - FeedManager
   - Hand
   - HeartSpawner
+  - LeftHand
+  - RightHand
+  - GameManager
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Wall
   - Terrain
-  - PostProcessing
+  - 
   - Chicken
   - Chick
-  - 
+  - SortingStaticObject
   - 
   - 
   - 
