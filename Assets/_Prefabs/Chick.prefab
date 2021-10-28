@@ -164,9 +164,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9088358294253522171}
   - component: {fileID: 9186125981428143693}
-  - component: {fileID: 4755344587240350047}
   - component: {fileID: 2774551167506748729}
   - component: {fileID: 372124342456181235}
+  - component: {fileID: 4755344587240350047}
+  - component: {fileID: 185868647526816032}
   m_Layer: 10
   m_Name: Chick
   m_TagString: Chick
@@ -212,6 +213,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!54 &2774551167506748729
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9090988809236552731}
+  serializedVersion: 2
+  m_Mass: 3
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
+--- !u!136 &372124342456181235
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9090988809236552731}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0949738
+  m_Height: 0.25953814
+  m_Direction: 1
+  m_Center: {x: 0.0047103763, y: 0.11709919, z: 0.0153410435}
 --- !u!114 &4755344587240350047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,37 +255,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbaa3c1506ff4a349d21fcc80e2e318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chickSpeed: 0.1
---- !u!54 &2774551167506748729
-Rigidbody:
+  walkSpeed: 0.5
+--- !u!114 &185868647526816032
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090988809236552731}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 3
---- !u!136 &372124342456181235
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9090988809236552731}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.0865438
-  m_Height: 0.25953814
-  m_Direction: 1
-  m_Center: {x: 0.0047103763, y: 0.11709919, z: 0.014687221}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5348281ce2f14fe1bf40ddf4c3b09ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSorted: 0
 --- !u!1 &9091065637894698553
 GameObject:
   m_ObjectHideFlags: 0

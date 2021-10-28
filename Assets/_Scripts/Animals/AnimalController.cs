@@ -32,6 +32,11 @@ public class AnimalController : MonoBehaviour
         StartCoroutine(WaitAndWalk());
     }
 
+    public void StopWalking()
+    {
+        walkSpeed = 0;
+    }
+
     private IEnumerator WaitAndWalk()
     {
         while (true)
@@ -51,7 +56,7 @@ public class AnimalController : MonoBehaviour
             //}
 
         }
-
     }
+
 
 }

@@ -13,6 +13,11 @@ TagManager:
   - LeftHand
   - RightHand
   - GameManager
+  - SortingManager
+  - SortingChicken
+  - SortingChick
+  - ChickenSpawner
+  - Egg
   layers:
   - Default
   - TransparentFX
@@ -26,7 +31,7 @@ TagManager:
   - Chicken
   - Chick
   - SortingStaticObject
-  - 
+  - GrabbedAnimal
   - 
   - 
   - 

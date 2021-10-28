@@ -32,7 +32,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Sorting")]
     public UnityEvent onSortingStarted;
+    public UnityEvent onSortingCompleted;
 
+    [Header("CollectingEggs")]
+    public UnityEvent onCollectingEggsStarted;
+    public UnityEvent onCollectingEggsCompleted;
     public UnityEvent onReset;
 
     //Feeding
@@ -75,8 +79,21 @@ public class GameManager : MonoBehaviour
         onSortingStarted.Invoke();
     }
 
+    public void CompleteSorting()//called from SortinManager.cs
+    {
+        onSortingCompleted.Invoke();
+    }
 
+    //Collect Egg
+    public void StartCollectingEgg()
+    {
+        onCollectingEggsStarted.Invoke();
+    }
 
+    public void CompleteCollectingEgg()
+    {
+        onCollectingEggsCompleted.Invoke();
+    }
 
     public void Reset()
     {

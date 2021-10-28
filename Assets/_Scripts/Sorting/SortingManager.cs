@@ -4,38 +4,67 @@ using UnityEngine;
 
 public class SortingManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] _chicks;
-    [SerializeField]
-    private GameObject[] _chickens;
+    public GameObject rightHoldPos;
+    public GameObject leftHoldPos;
+    public bool isHolding;
 
-    //gizmo
+    private GameManager _gameManager;
+    private ChickenSpawner _chickenSpawner;
+    public int sortedAnimalCount;
+    private int _animalCount;
+    public float releaseTime = 0.5f;
+
+    private AudioSource _grabAudio;
+
+    //gizmo, walkable area
     public Vector3 tableSize;
+    //private Vector3 animalPos;
+
+    public GameObject[] chicks;
+    public GameObject[] chickens;
 
     void Start()
     {
-        _chicks = GameObject.FindGameObjectsWithTag("Chick");
-        _chickens = GameObject.FindGameObjectsWithTag("Chicken");
-        MoveAnimalOnTable();
-    }
+        chicks = GameObject.FindGameObjectsWithTag("Chick");
+        chickens = GameObject.FindGameObjectsWithTag("Chicken");
+        _grabAudio = GetComponent<AudioSource>();
 
-    void Update()
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        _chickenSpawner = GameObject.FindGameObjectWithTag("ChickenSpawner").GetComponent<ChickenSpawner>();
+        _animalCount = _chickenSpawner.numberOfChickens + _chickenSpawner.numberOfChicks;
+
+    }
+    private void Update()
     {
- 
+        if(sortedAnimalCount == _animalCount) {
+            _gameManager.CompleteSorting();
+        }
     }
 
+    public void ReadyToSort()
+    {
+        rightHoldPos.SetActive(true);
+        leftHoldPos.SetActive(true);
+        MoveAnimalOnTable();
+
+        sortedAnimalCount = 0;
+
+        //AvoidWalkAbove();
+    }
+
+    //Move animal on the table
     private void MoveAnimalOnTable()
     {
-        foreach (GameObject chicks in _chicks)
+        foreach (GameObject chick in chicks)
         {
             //randomly generate animal position
             Vector3 movePos = transform.position + new Vector3(Random.Range(-tableSize.x / 2, tableSize.x / 2),
                                                     0,
                                                     Random.Range(-tableSize.z / 2, tableSize.z / 2));
-            chicks.transform.position = movePos;
+            chick.transform.position = movePos;
         }
 
-        foreach (GameObject chicken in _chickens)
+        foreach (GameObject chicken in chickens)
         {
             //randomly generate animal position
             Vector3 movePos = transform.position + new Vector3(Random.Range(-tableSize.x / 2, tableSize.x / 2),
@@ -44,6 +73,103 @@ public class SortingManager : MonoBehaviour
             chicken.transform.position = movePos;
         }
     }
+
+    //Hold animal
+    public void HoldAnimal(string handtype, GameObject animal)
+    {
+        if (handtype == "RightHand")
+        {
+            animal.transform.SetParent(rightHoldPos.transform);
+            animal.layer = LayerMask.NameToLayer("GrabbedAnimal");
+            FreezePosition(animal);
+        }
+        if (handtype == "LeftHand")
+        {
+            animal.transform.SetParent(leftHoldPos.transform);
+            animal.layer = LayerMask.NameToLayer("GrabbedAnimal");
+            FreezePosition(animal);
+        }
+
+        animal.GetComponent<AnimalController>().StopWalking();
+        isHolding = true;
+        _grabAudio.Play();
+    }
+
+    private void FreezePosition(GameObject animal)
+    {
+        var rb = animal.GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+
+    public void ReleaseAnimal(GameObject animal)
+    {
+        isHolding = false;
+        StartCoroutine(Release(animal)) ;
+        FreezeXZ(animal);
+        sortedAnimalCount++;
+        //rightHandPrefab.SetActive(true);
+        //leftHandPrefab.SetActive(true);
+
+    }
+
+    private IEnumerator Release(GameObject animal)
+    {
+        yield return new WaitForSeconds(releaseTime);
+        animal.transform.parent = null;
+
+        if (animal.tag == "Chicken")
+        {
+            animal.layer = LayerMask.NameToLayer("Chicken");
+        }
+
+        if (animal.tag == "Chick")
+        {
+            animal.layer = LayerMask.NameToLayer("Chick");
+        }
+    }
+
+    private void FreezeXZ(GameObject animal)
+    {
+        var rb = animal.GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ ;
+    }
+
+    public void DestroyAnimals()
+    {
+        foreach (GameObject chick in chicks)
+        {
+            Destroy(chick);
+        }
+        foreach (GameObject chicken in chickens)
+        {
+            Destroy(chicken);
+        }
+    }
+
+
+    //private void AvoidWalkAbove()
+    //{
+    //    foreach (GameObject chick in _chicks)
+    //    {
+    //        var rb = chick.GetComponent<Rigidbody>();
+    //        rb.constraints = RigidbodyConstraints.FreezePositionY;
+    //        Debug.Log("chick y freezed");
+    //    }
+    //    foreach (GameObject chicken in _chickens)
+    //    {
+    //        var rb = chicken.GetComponent<Rigidbody>();
+    //        rb.constraints = RigidbodyConstraints.FreezePositionY;
+    //        Debug.Log("chicken y freezed");
+    //    }
+    //}
+
+    //private void LimitWalkableArea(GameObject animal)
+    //{
+    //    animalPos = animal.transform.position;
+    //    animalPos.x = Mathf.Clamp(animalPos.x, -tableSize.x / 2, tableSize.x / 2);
+    //    animalPos.z = Mathf.Clamp(animalPos.z, -tableSize.z / 2, tableSize.z / 2);
+    //}
 
 #if UNITY_EDITOR
 
