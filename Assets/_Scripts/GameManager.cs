@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
     public void StartSorting()//called from UI Complete Feeding Panel Button
     {
         onSortingStarted.Invoke();
+        eGameStatus = GameState.Sorting;
     }
 
     public void CompleteSorting()//called from SortinManager.cs
@@ -88,6 +89,7 @@ public class GameManager : MonoBehaviour
     public void StartCollectingEgg()
     {
         onCollectingEggsStarted.Invoke();
+        eGameStatus = GameState.EggCollection;
     }
 
     public void CompleteCollectingEgg()

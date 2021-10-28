@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EggCollectionManager : MonoBehaviour
 {
+    public GameObject rightHoldPos;
+    public GameObject leftHoldPos;
+
     public GameObject chicken;
     [Range(0, 50)]
     //public int numberOfChickens = 3;
@@ -13,26 +16,28 @@ public class EggCollectionManager : MonoBehaviour
     public GameObject egg;
     public float eggInterval;
     public Transform eggParent;
+    public int collectedEggCount;
+
+    public bool isHolding;
+    public float releaseTime = 0.5f;
 
     private GameManager _gameManager;
     private AudioSource _grabAudio;
-
-    private GameObject[] _chicks;
-    private GameObject[] _chickens;
 
     public Vector3 tableSize;
 
     void Start()
     {
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-
         _grabAudio = GetComponent<AudioSource>();
+        collectedEggCount = 0;
     }
 
     public void ReadyToCollect()
     {
         StartCoroutine(SpawnLate());
-
+        rightHoldPos.SetActive(true);
+        leftHoldPos.SetActive(true);
 
 
         StartCollecting();//後で移動
@@ -78,7 +83,50 @@ public class EggCollectionManager : MonoBehaviour
         }
     }
 
+    //Hold egg
+    public void HoldEgg(string handtype, GameObject egg)
+    {
+        if (handtype == "RightHand")
+        {
+            egg.transform.SetParent(rightHoldPos.transform);
+            egg.layer = LayerMask.NameToLayer("GrabbedAnimal");
+        }
+        if (handtype == "LeftHand")
+        {
+            egg.transform.SetParent(leftHoldPos.transform);
+            egg.layer = LayerMask.NameToLayer("GrabbedAnimal");
+        }
 
+        egg.GetComponent<Rigidbody>().useGravity = false;
+        isHolding = true;
+        _grabAudio.Play();
+        egg.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    public void ReleaseEgg(GameObject egg)
+    {
+        isHolding = false;
+        StartCoroutine(Release(egg));
+        collectedEggCount++;
+        egg.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+
+        //rightHandPrefab.SetActive(true);
+        //leftHandPrefab.SetActive(true);
+
+    }
+
+    private IEnumerator Release(GameObject egg)
+    {
+        yield return new WaitForSeconds(releaseTime);
+        egg.transform.parent = null;
+
+        if (egg.tag == "Egg")
+        {
+            egg.layer = LayerMask.NameToLayer("Egg");
+        }
+        Destroy(egg, 1f);
+    }
 
     //private void DestroyAnimals()
     //{

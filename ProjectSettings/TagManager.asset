@@ -18,6 +18,7 @@ TagManager:
   - SortingChick
   - ChickenSpawner
   - Egg
+  - EggCollectionManager
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - UI
   - Wall
   - Terrain
-  - 
+  - Egg
   - Chicken
   - Chick
   - SortingStaticObject
