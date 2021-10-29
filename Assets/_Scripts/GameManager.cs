@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,6 +40,12 @@ public class GameManager : MonoBehaviour
     public UnityEvent onCollectingEggsCompleted;
     public UnityEvent onReset;
 
+    [Header("SortingTimer")]
+    public float sortingTime = 0f;
+    public TextMeshProUGUI sortingTimeText;
+
+
+
     //Feeding
     private void Start()
     {
@@ -46,8 +53,24 @@ public class GameManager : MonoBehaviour
         onAwake.Invoke();
 
         feedScore = 0;
+
+        sortingTime = 0;
+
+        
     }
 
+    private void FixedUpdate()
+    {
+        Debug.Log(eGameStatus);
+        
+        if (eGameStatus == GameState.Sorting)
+        {
+            sortingTime += Time.deltaTime;
+
+        }
+        sortingTimeText.text = "Time:" + sortingTime.ToString("F0");
+
+    }
     //public void OnStartSelect()
     //{
     //    onStartActivated.Invoke();
@@ -59,7 +82,7 @@ public class GameManager : MonoBehaviour
         onFeedingStarted.Invoke();
     }
 
-    public static void FeedAnimal()
+    public static void FeedAnimal()//called from ParticleCollision.cs
     {
         if (eGameStatus == GameState.Feeding)
         {
@@ -74,7 +97,7 @@ public class GameManager : MonoBehaviour
     }
 
     //Sorting
-    public void StartSorting()//called from UI Complete Feeding Panel Button
+    public void StartSorting()//called from UI Complete StartSorting Panel Button
     {
         onSortingStarted.Invoke();
         eGameStatus = GameState.Sorting;
@@ -83,18 +106,20 @@ public class GameManager : MonoBehaviour
     public void CompleteSorting()//called from SortinManager.cs
     {
         onSortingCompleted.Invoke();
+        eGameStatus = GameState.Intro;
     }
 
     //Collect Egg
-    public void StartCollectingEgg()
+    public void StartCollectingEgg()//called from UI StartCollecting Panel Button
     {
         onCollectingEggsStarted.Invoke();
         eGameStatus = GameState.EggCollection;
     }
 
-    public void CompleteCollectingEgg()
+    public void CompleteCollectingEgg()//called from EggCollectionManager.cs
     {
         onCollectingEggsCompleted.Invoke();
+        eGameStatus = GameState.Intro;
     }
 
     public void Reset()

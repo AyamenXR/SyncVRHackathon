@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class SortingManager : MonoBehaviour
 {
+    public GameObject sortingStatic;
     public GameObject rightHoldPos;
     public GameObject leftHoldPos;
     public bool isHolding;
+    public bool isCompleted;
 
     private GameManager _gameManager;
     private ChickenSpawner _chickenSpawner;
@@ -36,8 +38,9 @@ public class SortingManager : MonoBehaviour
     }
     private void Update()
     {
-        if(sortedAnimalCount == _animalCount) {
+        if(sortedAnimalCount == _animalCount && !isCompleted) {
             _gameManager.CompleteSorting();
+            isCompleted = true;
         }
     }
 
@@ -45,15 +48,20 @@ public class SortingManager : MonoBehaviour
     {
         rightHoldPos.SetActive(true);
         leftHoldPos.SetActive(true);
-        MoveAnimalOnTable();
+        sortingStatic.SetActive(true);
 
         sortedAnimalCount = 0;
 
         //AvoidWalkAbove();
     }
 
+    public void FinishSorting()
+    {
+        sortingStatic.SetActive(false);
+    }
+
     //Move animal on the table
-    private void MoveAnimalOnTable()
+    public void MoveAnimalOnTable()
     {
         foreach (GameObject chick in chicks)
         {
@@ -62,6 +70,7 @@ public class SortingManager : MonoBehaviour
                                                     0,
                                                     Random.Range(-tableSize.z / 2, tableSize.z / 2));
             chick.transform.position = movePos;
+            Debug.Log("Chick hold");
         }
 
         foreach (GameObject chicken in chickens)
@@ -71,6 +80,7 @@ public class SortingManager : MonoBehaviour
                                                     0,
                                                     Random.Range(-tableSize.z / 2, tableSize.z / 2));
             chicken.transform.position = movePos;
+            Debug.Log("Chicken hold");
         }
     }
 

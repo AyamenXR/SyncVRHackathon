@@ -15,7 +15,7 @@ public class CollectingTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider egg)
     {
-        if (egg.gameObject.tag == "Egg")
+        if (egg.gameObject.tag == "Egg" && !egg.gameObject.GetComponent<EggTrigger>().isCollected)
         {
             _eggCollectionManager.ReleaseEgg(egg.gameObject);
             egg.gameObject.GetComponent<EggTrigger>().isCollected = true;

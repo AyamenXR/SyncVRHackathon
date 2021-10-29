@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EggCollectionManager : MonoBehaviour
 {
+    public GameObject collectionStatic;
     public GameObject rightHoldPos;
     public GameObject leftHoldPos;
 
@@ -16,15 +18,20 @@ public class EggCollectionManager : MonoBehaviour
     public GameObject egg;
     public float eggInterval;
     public Transform eggParent;
-    public int collectedEggCount;
+    
 
     public bool isHolding;
-    public float releaseTime = 0.5f;
+    public float releaseTime = 0.1f;
 
     private GameManager _gameManager;
     private AudioSource _grabAudio;
 
     public Vector3 tableSize;
+
+    [Header("CollectingEggsTimer")]
+    public float remainCollectTime = 30f;
+    public TextMeshProUGUI collectingScoreText;
+    public int collectedEggCount;
 
     void Start()
     {
@@ -33,22 +40,53 @@ public class EggCollectionManager : MonoBehaviour
         collectedEggCount = 0;
     }
 
-    public void ReadyToCollect()
+    private void FixedUpdate()
     {
-        StartCoroutine(SpawnLate());
+
+        if (GameManager.eGameStatus == GameManager.GameState.EggCollection)
+        {
+            if (remainCollectTime > 0)
+            {
+                remainCollectTime -= Time.deltaTime;
+            }
+            else if (remainCollectTime <= 0)
+            {
+                _gameManager.CompleteCollectingEgg();
+            }
+        }
+        collectingScoreText.text = "Eggs:" + collectedEggCount.ToString()
+                 + "Time Remaining:" + remainCollectTime.ToString("F0");
+
+    }
+        public void ReadyToCollect()
+    {
+        //StartCoroutine(SpawnLate());
         rightHoldPos.SetActive(true);
         leftHoldPos.SetActive(true);
-
-
-        StartCollecting();//後で移動
+        collectionStatic.SetActive(true);
+        StartCoroutine(SpawnChicken());
     }
 
-    public void StartCollecting()
+    public void FinishCollecting()
     {
-        StartCoroutine(SpawnEggs());
+        StopCoroutine("SpawnEggs");
+        Destroy(spawnedChicken);
+        //collectionStatic.SetActive(false);
+        GameObject[] eggs = GameObject.FindGameObjectsWithTag("Egg");
+
+        foreach (GameObject egg in eggs)
+        {
+            Destroy(egg);
+        }
+        
     }
 
-    private IEnumerator SpawnLate()
+    public void StartCollecting()//call from game manager
+    {
+        StartCoroutine("SpawnEggs");
+    }
+
+    private IEnumerator SpawnChicken()
     {
         yield return new WaitForSeconds(1f);
         SpawnChickensOnTable();
@@ -79,7 +117,6 @@ public class EggCollectionManager : MonoBehaviour
                 - new Vector3(0, 0, 0.2f);
             GameObject spawnedEgg = Instantiate(egg, eggSpawnPos, Quaternion.identity);
             spawnedEgg.transform.SetParent(eggParent);
-            Debug.Log("eggspawned");
         }
     }
 
@@ -125,7 +162,15 @@ public class EggCollectionManager : MonoBehaviour
         {
             egg.layer = LayerMask.NameToLayer("Egg");
         }
-        Destroy(egg, 1f);
+        Destroy(egg, 0.3f);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     //private void DestroyAnimals()

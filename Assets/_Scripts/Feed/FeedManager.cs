@@ -10,8 +10,7 @@ public class FeedManager : MonoBehaviour
 
     public GameObject rightFeedSpawner;
     public GameObject leftFeedSpawner;
-    public GameObject feedSacks;
-    public GameObject FeedThrowTrigger;
+    public GameObject feedStatic;
 
     public int maxThrowCount;
     private int throwCount;
@@ -71,7 +70,7 @@ public class FeedManager : MonoBehaviour
         {
             Destroy(spawnedFeed);
 
-            Quaternion spawnQ = Quaternion.Euler(-20, 0, 0);
+            Quaternion spawnQ = Quaternion.Euler(0, 0, 0);
             if (handtype == "RightHand")
             {
                 GameObject _spawnedFeedParticle = Instantiate(feedParticle, rightFeedSpawner.transform.position, spawnQ);
@@ -95,14 +94,10 @@ public class FeedManager : MonoBehaviour
     {
         rightFeedSpawner.SetActive(true);
         leftFeedSpawner.SetActive(true);
-        feedSacks.SetActive(true);
-        FeedThrowTrigger.SetActive(true);
+        feedStatic.SetActive(true);
     }
     public void FinishFeed()
     {
-        rightFeedSpawner.SetActive(false);
-        leftFeedSpawner.SetActive(false);
-        feedSacks.SetActive(false);
-        FeedThrowTrigger.SetActive(false);
+        feedStatic.SetActive(false);
     }
 }
