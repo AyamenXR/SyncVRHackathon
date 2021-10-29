@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
             sortingTime += Time.deltaTime;
 
         }
-        sortingTimeText.text = "Time:" + sortingTime.ToString("F0");
+        sortingTimeText.text = sortingTime.ToString("F0");
 
     }
     //public void OnStartSelect()

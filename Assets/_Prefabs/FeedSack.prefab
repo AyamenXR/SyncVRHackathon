@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4753549408214534791}
   - component: {fileID: 3805141315388538327}
   - component: {fileID: 6035513640904359402}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FeedSackTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3676187475285046086}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5868b3df22db34553a30dfef8687b71b, type: 2}
+  - {fileID: 2100000, guid: 6c1909d18eeca450d95934b0fdd9d435, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4232786906332916961}
   - component: {fileID: 4240286398144997803}
   - component: {fileID: 4250979078546470087}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FeedSack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4227728837880881705}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.8253, y: -0.12887, z: 0.24553}
   m_LocalScale: {x: 0.5075849, y: 0.62179154, z: 0.5075849}
   m_Children:

@@ -54,8 +54,8 @@ public class EggCollectionManager : MonoBehaviour
                 _gameManager.CompleteCollectingEgg();
             }
         }
-        collectingScoreText.text = "Eggs:" + collectedEggCount.ToString()
-                 + "Time Remaining:" + remainCollectTime.ToString("F0");
+        collectingScoreText.text = collectedEggCount.ToString()
+                 + "| " + remainCollectTime.ToString("F0");
 
     }
         public void ReadyToCollect()
