@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
 {
     //Scores
     public static int feedScore;
-
     public delegate void FeedHandler();
     public static event FeedHandler WhenAnimalFed;
 
@@ -51,22 +50,17 @@ public class GameManager : MonoBehaviour
     {
         eGameStatus = GameState.Intro;
         onAwake.Invoke();
-
         feedScore = 0;
-
         sortingTime = 0;
-
-        
     }
 
     private void FixedUpdate()
     {
-        Debug.Log(eGameStatus);
+        //Debug.Log(eGameStatus);
         
         if (eGameStatus == GameState.Sorting)
         {
             sortingTime += Time.deltaTime;
-
         }
         sortingTimeText.text = sortingTime.ToString("F0");
 

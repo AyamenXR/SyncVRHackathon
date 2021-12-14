@@ -6,8 +6,6 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public GameObject feedScoreText;
-
-
     private void OnEnable()
     {
         GameManager.WhenAnimalFed += DisplayScore;
