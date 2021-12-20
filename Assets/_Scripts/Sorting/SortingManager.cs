@@ -157,6 +157,11 @@ public class SortingManager : MonoBehaviour
         }
     }
 
+    public void ResetSorting()
+    {
+        sortedAnimalCount = 0;
+    }
+
 
     //private void AvoidWalkAbove()
     //{

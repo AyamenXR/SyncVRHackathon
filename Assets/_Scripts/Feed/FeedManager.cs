@@ -16,21 +16,26 @@ public class FeedManager : MonoBehaviour
     private int throwCount;
     private bool feedFinished;
 
+    private GameObject _mainCamera;
+    private float throwDirection;
     private GameObject spawnedFeed;
     private AudioSource _audio;
 
     private GameManager _gameManager;
 
-    void Start()
+     void Start()
     {
         _audio = GetComponent<AudioSource>();
         throwCount = 0;
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     
     void Update()
     {
+        throwDirection = _mainCamera.transform.eulerAngles.y;
+
         //Invoke UE "onFeedingCompleted"
         if (throwCount == maxThrowCount && !feedFinished)
         {
@@ -70,16 +75,17 @@ public class FeedManager : MonoBehaviour
         {
             Destroy(spawnedFeed);
 
-            Quaternion spawnQ = Quaternion.Euler(0, 0, 0);
+            //Quaternion spawnQ = Quaternion.Euler(0, _xrCamera.transform.rotation.y, 0);
+            //Debug.Log(_xrCamera.transform.rotation.y);
             if (handtype == "RightHand")
             {
-                GameObject _spawnedFeedParticle = Instantiate(feedParticle, rightFeedSpawner.transform.position, spawnQ);
+                GameObject _spawnedFeedParticle = Instantiate(feedParticle, rightFeedSpawner.transform.position, Quaternion.Euler(0, throwDirection, 0));
                 _spawnedFeedParticle.transform.SetParent(rightFeedSpawner.transform);
                 Destroy(_spawnedFeedParticle, 2f);
             }
             if (handtype == "LeftHand")
             {
-                GameObject _spawnedFeedParticle = Instantiate(feedParticle, leftFeedSpawner.transform.position, spawnQ);
+                GameObject _spawnedFeedParticle = Instantiate(feedParticle, leftFeedSpawner.transform.position, Quaternion.Euler(0, throwDirection, 0));
                 _spawnedFeedParticle.transform.SetParent(leftFeedSpawner.transform);
                 Destroy(_spawnedFeedParticle, 2f);
             }
@@ -99,5 +105,10 @@ public class FeedManager : MonoBehaviour
     public void FinishFeed()
     {
         feedStatic.SetActive(false);
+    }
+
+    public void ResetFeeding()
+    {
+        throwCount = 0;
     }
 }

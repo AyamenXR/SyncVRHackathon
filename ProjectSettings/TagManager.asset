@@ -19,6 +19,7 @@ TagManager:
   - ChickenSpawner
   - Egg
   - EggCollectionManager
+  - XRCamera
   layers:
   - Default
   - TransparentFX

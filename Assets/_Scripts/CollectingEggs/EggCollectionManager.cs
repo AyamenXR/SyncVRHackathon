@@ -18,7 +18,7 @@ public class EggCollectionManager : MonoBehaviour
     public GameObject egg;
     public float eggInterval;
     public Transform eggParent;
-    
+
 
     public bool isHolding;
     public float releaseTime = 0.1f;
@@ -58,7 +58,7 @@ public class EggCollectionManager : MonoBehaviour
                  + "| " + remainCollectTime.ToString("F0");
 
     }
-        public void ReadyToCollect()
+    public void ReadyToCollect()
     {
         //StartCoroutine(SpawnLate());
         rightHoldPos.SetActive(true);
@@ -78,7 +78,7 @@ public class EggCollectionManager : MonoBehaviour
         {
             Destroy(egg);
         }
-        
+
     }
 
     public void StartCollecting()//call from game manager
@@ -163,6 +163,11 @@ public class EggCollectionManager : MonoBehaviour
             egg.layer = LayerMask.NameToLayer("Egg");
         }
         Destroy(egg, 0.3f);
+    }
+
+    public void ResestEggCollection()
+    {
+        collectedEggCount = 0;
     }
 
     public void Quit()
