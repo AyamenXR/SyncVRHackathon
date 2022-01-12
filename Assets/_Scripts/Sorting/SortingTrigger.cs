@@ -2,40 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SortingTrigger : MonoBehaviour
+namespace ChickenFarm
 {
-    public string triggerTag;
-
-    private SortingManager _sortingManager;
-    private AudioSource _correctAudio;
-
-    void Start()
+    public class SortingTrigger : MonoBehaviour
     {
-        triggerTag = this.gameObject.tag;
-        _sortingManager = GameObject.FindGameObjectWithTag("SortingManager").GetComponent<SortingManager>();
-        _correctAudio = GetComponent<AudioSource>();
-    }
+        public string triggerTag;
+        private SortingManager _sortingManager;
+        private AudioSource _correctAudio;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(triggerTag == "SortingChick" && other.gameObject.tag == "Chick")
+        void Start()
         {
-            SortAnimal(other);
-        }
-        if (triggerTag == "SortingChicken" && other.gameObject.tag == "Chicken")
-        {
-            SortAnimal(other);
-        }
-    }
-
-    private void SortAnimal(Collider animal)
-    {
-        if (!animal.gameObject.GetComponent<AnimalTrigger>().isSorted)
-        {
-            _sortingManager.ReleaseAnimal(animal.gameObject);
-            animal.gameObject.GetComponent<AnimalTrigger>().isSorted = true;
-            _correctAudio.Play();
+            triggerTag = this.gameObject.tag;
+            _sortingManager = GameObject.FindGameObjectWithTag("SortingManager").GetComponent<SortingManager>();
+            _correctAudio = GetComponent<AudioSource>();
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (triggerTag == "SortingChick" && other.gameObject.tag == "Chick")
+            {
+                SortAnimal(other);
+            }
+            if (triggerTag == "SortingChicken" && other.gameObject.tag == "Chicken")
+            {
+                SortAnimal(other);
+            }
+        }
+
+        private void SortAnimal(Collider animal)
+        {
+            if (!animal.gameObject.GetComponent<AnimalTrigger>().isSorted)
+            {
+                _sortingManager.ReleaseAnimal(animal.gameObject);
+                animal.gameObject.GetComponent<AnimalTrigger>().isSorted = true;
+                _correctAudio.Play();
+            }
+        }
     }
+
 }

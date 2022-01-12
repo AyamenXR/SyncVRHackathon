@@ -4,121 +4,131 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+namespace ChickenFarm
 {
-    //Scores
-    public static int feedScore;
-    public delegate void FeedHandler();
-    public static event FeedHandler WhenAnimalFed;
-
-    //Enum
-    public enum GameState
+    public class GameManager : MonoBehaviour
     {
-        Intro,
-        Feeding,
-        Sorting,
-        EggCollection
-    }
+        //Scores
+        public static int feedScore;
+        public delegate void FeedHandler();
+        public static event FeedHandler WhenAnimalFed;
 
-    public static GameState eGameStatus;
-
-    //UnityEvents
-    [Header("Feeding")]
-    public UnityEvent onAwake;
-    //public UnityEvent onStartActivated;
-    public UnityEvent onFeedingStarted;
-    public UnityEvent onFeedingCompleted;
-
-    [Header("Sorting")]
-    public UnityEvent onSortingStarted;
-    public UnityEvent onSortingCompleted;
-
-    [Header("CollectingEggs")]
-    public UnityEvent onCollectingEggsStarted;
-    public UnityEvent onCollectingEggsCompleted;
-    public UnityEvent onReset;
-
-    [Header("SortingTimer")]
-    public float sortingTime = 0f;
-    public TextMeshProUGUI sortingTimeText;
-
-
-
-    //Feeding
-    private void Start()
-    {
-        eGameStatus = GameState.Intro;
-        onAwake.Invoke();
-        feedScore = 0;
-        sortingTime = 0;
-    }
-
-    private void FixedUpdate()
-    {
-        //Debug.Log(eGameStatus);
-        
-        if (eGameStatus == GameState.Sorting)
+        //Enum
+        public enum GameState
         {
-            sortingTime += Time.deltaTime;
+            Intro,
+            Feeding,
+            Sorting,
+            EggCollection
         }
-        sortingTimeText.text = sortingTime.ToString("F0");
 
-    }
-    //public void OnStartSelect()
-    //{
-    //    onStartActivated.Invoke();
-    //}
+        public static GameState eGameStatus;
 
-    public void StartFeeding()//called from UI Start Feeding panel button
-    {
-        eGameStatus = GameState.Feeding;
-        onFeedingStarted.Invoke();
-    }
+        //UnityEvents
+        [Header("Feeding")]
+        public UnityEvent onAwake;
+        //public UnityEvent onStartActivated;
+        public UnityEvent onFeedingStarted;
+        public UnityEvent onFeedingCompleted;
 
-    public static void FeedAnimal()//called from ParticleCollision.cs
-    {
-        if (eGameStatus == GameState.Feeding)
+        [Header("Sorting")]
+        public UnityEvent onSortingStarted;
+        public UnityEvent onSortingCompleted;
+
+        [Header("CollectingEggs")]
+        public UnityEvent onCollectingEggsStarted;
+        public UnityEvent onCollectingEggsCompleted;
+        public UnityEvent onReset;
+
+        [Header("SortingTimer")]
+        public float sortingTime = 0f;
+        public TextMeshProUGUI sortingTimeText;
+
+        //Feeding
+        private void Start()
         {
-            feedScore += 1;
-            WhenAnimalFed();
+            eGameStatus = GameState.Intro;
+            onAwake.Invoke();
+            feedScore = 0;
+            sortingTime = 0;
         }
-    }
 
-    public void CompleteFeedAnimal()//called from FeedManager.cs
-    {
-        onFeedingCompleted.Invoke();
-    }
+        private void FixedUpdate()
+        {
+            if (eGameStatus == GameState.Sorting)
+            {
+                sortingTime += Time.deltaTime;
+            }
+            sortingTimeText.text = sortingTime.ToString("F0");
 
-    //Sorting
-    public void StartSorting()//called from UI Complete StartSorting Panel Button
-    {
-        onSortingStarted.Invoke();
-        eGameStatus = GameState.Sorting;
-    }
+        }
+        //public void OnStartSelect()
+        //{
+        //    onStartActivated.Invoke();
+        //}
+        public void StartFeeding()//called from UI Start Feeding panel button
+        {
+            eGameStatus = GameState.Feeding;
+            onFeedingStarted.Invoke();
+        }
 
-    public void CompleteSorting()//called from SortinManager.cs
-    {
-        onSortingCompleted.Invoke();
-        eGameStatus = GameState.Intro;
-    }
+        public static void FeedAnimal()//called from ParticleCollision.cs
+        {
+            if (eGameStatus == GameState.Feeding)
+            {
+                feedScore += 1;
+                WhenAnimalFed();
+            }
+        }
 
-    //Collect Egg
-    public void StartCollectingEgg()//called from UI StartCollecting Panel Button
-    {
-        onCollectingEggsStarted.Invoke();
-        eGameStatus = GameState.EggCollection;
-    }
+        public void CompleteFeedAnimal()//called from FeedManager.cs
+        {
+            onFeedingCompleted.Invoke();
+        }
 
-    public void CompleteCollectingEgg()//called from EggCollectionManager.cs
-    {
-        onCollectingEggsCompleted.Invoke();
-        eGameStatus = GameState.Intro;
-    }
+        //Sorting
+        public void StartSorting()//called from UI Complete StartSorting Panel Button
+        {
+            onSortingStarted.Invoke();
+            eGameStatus = GameState.Sorting;
+        }
 
-    public void Reset()
-    {
-        feedScore = 0;
+        public void CompleteSorting()//called from SortinManager.cs
+        {
+            onSortingCompleted.Invoke();
+            eGameStatus = GameState.Intro;
+        }
+
+        //Collect Egg
+        public void StartCollectingEgg()//called from UI StartCollecting Panel Button
+        {
+            onCollectingEggsStarted.Invoke();
+            eGameStatus = GameState.EggCollection;
+        }
+
+        public void CompleteCollectingEgg()//called from EggCollectionManager.cs
+        {
+            onCollectingEggsCompleted.Invoke();
+            eGameStatus = GameState.Intro;
+        }
+
+        public void Reset()
+        {
+            feedScore = 0;
+        //    GameObject[] touchUiButtons = GameObject.FindGameObjectsWithTag("TouchUiButton");
+        //    foreach (GameObject touchUiButton in touchUiButtons)
+        //    {
+        //        //touchUiButton.GetComponent<TouchUIButton>().ResetTouchUIButton();
+        //        //touchUiButton.GetComponent<Image>().enabled = true;
+        //        //touchUiButton.GetComponent<Collider>().enabled = true;
+        //        //touchUiButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+        //        Debug.Log("button resetted");
+        //    }
+        //}
+
     }
 
 }
+

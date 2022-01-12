@@ -2,25 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FeedThrowTrigger : MonoBehaviour
+namespace ChickenFarm
 {
-    private FeedManager _feedManager;
-
-    // Start is called before the first frame update
-    void Start()
+    public class FeedThrowTrigger : MonoBehaviour
     {
-        _feedManager = GameObject.FindGameObjectWithTag("FeedManager").GetComponent<FeedManager>();
-    }
+        private FeedManager _feedManager;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!_feedManager.isThrown)
+        // Start is called before the first frame update
+        void Start()
         {
-            if (other.gameObject.CompareTag("LeftHand") || other.gameObject.CompareTag("RightHand") )
-            {
-                _feedManager.ThrowFeed(other.gameObject.tag);
-            }
+            _feedManager = GameObject.FindGameObjectWithTag("FeedManager").GetComponent<FeedManager>();
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!_feedManager.isThrown)
+            {
+                if (other.gameObject.CompareTag("LeftHand") || other.gameObject.CompareTag("RightHand"))
+                {
+                    _feedManager.ThrowFeed(other.gameObject.tag);
+                }
+            }
+        }
     }
 }
+

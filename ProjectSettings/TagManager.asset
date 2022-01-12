@@ -20,6 +20,7 @@ TagManager:
   - Egg
   - EggCollectionManager
   - XRCamera
+  - TouchUiButton
   layers:
   - Default
   - TransparentFX

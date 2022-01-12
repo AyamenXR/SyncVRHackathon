@@ -2,50 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalController : MonoBehaviour
+namespace ChickenFarm
 {
-    public float walkSpeed = 0.5f;
-
-    private Animator _animator;
-    //private GameManager gameManager;
-    private bool _isWalking;
-
-    // Start is called before the first frame update
-    void Start()
+    public class AnimalController : MonoBehaviour
     {
-        _animator = GetComponent<Animator>();
-        IdleAndWalk();
-        //gameManager.onStartActivated.AddListener(Walk);
-    }
+        public float walkSpeed = 0.5f;
 
-    private void FixedUpdate()
-    {
-        if (_isWalking)
+        private Animator _animator;
+        //private GameManager gameManager;
+        private bool _isWalking;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
+            _animator = GetComponent<Animator>();
+            IdleAndWalk();
+            //gameManager.onStartActivated.AddListener(Walk);
         }
 
-    }
-
-    private void IdleAndWalk()
-    {
-        StartCoroutine(WaitAndWalk());
-    }
-
-    public void StopWalking()
-    {
-        walkSpeed = 0;
-    }
-
-    private IEnumerator WaitAndWalk()
-    {
-        while (true)
+        private void FixedUpdate()
         {
-            float randomSec = Random.Range(5, 15);
-            yield return new WaitForSeconds(randomSec);
+            if (_isWalking)
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
+            }
+        }
 
-            //if (!_animator.GetBool("Eat"))
-            //{
+        private void IdleAndWalk()
+        {
+            StartCoroutine(WaitAndWalk());
+        }
+
+        public void StopWalking()
+        {
+            walkSpeed = 0;
+        }
+
+        private IEnumerator WaitAndWalk()
+        {
+            while (true)
+            {
+                float randomSec = Random.Range(5, 15);
+                yield return new WaitForSeconds(randomSec);
+
                 _animator.SetBool("Walk", true);
                 _isWalking = true;
 
@@ -53,10 +52,10 @@ public class AnimalController : MonoBehaviour
 
                 _animator.SetBool("Walk", false);
                 _isWalking = false;
-            //}
-
+            }
         }
+
+
     }
-
-
 }
+

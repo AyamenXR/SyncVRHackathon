@@ -2,38 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleCollision : MonoBehaviour
+namespace ChickenFarm
 {
-    private HeartSpawner heartSpawner;
-    //public int feedCount;
-    
-    void Start()
+    public class ParticleCollision : MonoBehaviour
     {
-        //feedCount = 0;
-        heartSpawner = GameObject.FindGameObjectWithTag("HeartSpawner").GetComponent<HeartSpawner>();
-    }
+        private HeartSpawner heartSpawner;
 
-    private void Update()
-    {
-        //Debug.Log(feedCount);
-    }
-
-    private void OnParticleCollision(GameObject other)
-    {
-        if (other.gameObject.CompareTag("Chick") || other.gameObject.CompareTag("Chicken"))
+        void Start()
         {
-                other.gameObject.GetComponent<Animator>().SetTrigger("Eat");
-                heartSpawner.SpawnHeart(other);
-
-                //Count++;
-                GameManager.FeedAnimal();
+            heartSpawner = GameObject.FindGameObjectWithTag("HeartSpawner").GetComponent<HeartSpawner>();
         }
 
-    }
+        private void OnParticleCollision(GameObject other)
+        {
+            if (other.gameObject.CompareTag("Chick") || other.gameObject.CompareTag("Chicken"))
+            {
+                other.gameObject.GetComponent<Animator>().SetTrigger("Eat");
+                heartSpawner.SpawnHeart(other);
+                GameManager.FeedAnimal();
+            }
 
-    //public int Count
-    //{
-    //    get { return feedCount; }
-    //    private set { feedCount = value; }
-    //}
+        }
+    }
 }
+

@@ -5,31 +5,36 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class TouchUIButton : MonoBehaviour
+namespace ChickenFarm
 {
-    public UnityEvent onClick;
-    //public UnityEvent closeThisUi;
-    public bool isTouched;
-
-    private void OnTriggerEnter(Collider other)
+    public class TouchUIButton : MonoBehaviour
     {
-        if (!isTouched)
+        public UnityEvent onClick;
+        public bool isTouched;
+
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("RightHand") || other.gameObject.CompareTag("LeftHand"))
+            if (!isTouched)
             {
-                isTouched = true;
-                StartCoroutine(WaitAndInvoke());
+                if (other.gameObject.CompareTag("RightHand") || other.gameObject.CompareTag("LeftHand"))
+                {
+                    isTouched = true;
+                    StartCoroutine(WaitAndInvoke());
+                }
             }
         }
+        private IEnumerator WaitAndInvoke()
+        {
+            this.gameObject.GetComponent<Image>().enabled = false;
+            this.gameObject.GetComponent<Collider>().enabled = false;
+            this.gameObject.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+            yield return new WaitForSeconds(1f);
+            onClick.Invoke();
+            this.gameObject.GetComponent<Image>().enabled = true;
+            this.gameObject.GetComponent<Collider>().enabled = true;
+            this.gameObject.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
+            isTouched = false;
+        }
+    }
 
-    }
-    private IEnumerator WaitAndInvoke()
-    {
-        this.gameObject.GetComponent<Image>().enabled = false;
-        this.gameObject.GetComponent<Collider>().enabled = false;
-        this.gameObject.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
-        //closeThisUi.Invoke();
-        yield return new WaitForSeconds(1f);
-        onClick.Invoke();
-    }
 }

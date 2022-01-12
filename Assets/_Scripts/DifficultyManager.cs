@@ -17,7 +17,6 @@ namespace ChickenFarm
             chickenSpawner = GameObject.FindGameObjectWithTag("ChickenSpawner").GetComponent<ChickenSpawner>();
             feedManager = GameObject.FindGameObjectWithTag("FeedManager").GetComponent<FeedManager>();
             eggCollectionManager = GameObject.FindGameObjectWithTag("EggCollectionManager").GetComponent<EggCollectionManager>();
-            Debug.Log(chickenSpawner.numberOfChicks);
         }
         public void SetLightDifficulty()
         {

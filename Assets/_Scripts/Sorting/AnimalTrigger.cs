@@ -2,33 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalTrigger : MonoBehaviour
+namespace ChickenFarm
 {
-    private SortingManager _sortingManager;
-    public bool isSorted;
-
-    private void Start()
+    public class AnimalTrigger : MonoBehaviour
     {
-        _sortingManager = GameObject.FindGameObjectWithTag("SortingManager").GetComponent<SortingManager>();
+        private SortingManager _sortingManager;
+        public bool isSorted;
 
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(GameManager.eGameStatus == GameManager.GameState.Sorting)
+        private void Start()
         {
-            if (!_sortingManager.isHolding && !isSorted)
-            {
-                if (other.gameObject.CompareTag("LeftHand") || other.gameObject.CompareTag("RightHand"))
-                {
-                    _sortingManager.HoldAnimal(other.gameObject.tag, this.gameObject);
-                }
-
-            }
+            _sortingManager = GameObject.FindGameObjectWithTag("SortingManager").GetComponent<SortingManager>();
         }
-        else
+
+        private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("not in sorting");
+            if (GameManager.eGameStatus == GameManager.GameState.Sorting)
+            {
+                if (!_sortingManager.isHolding && !isSorted)
+                {
+                    if (other.gameObject.CompareTag("LeftHand") || other.gameObject.CompareTag("RightHand"))
+                    {
+                        _sortingManager.HoldAnimal(other.gameObject.tag, this.gameObject);
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("not in sorting");
+            }
         }
     }
 }
+
