@@ -27,12 +27,14 @@ namespace ChickenFarm
         private AudioSource _audio;
 
         private GameManager _gameManager;
+        private ChickenSpawner _chickenSpawner;
 
         void Start()
         {
             _audio = GetComponent<AudioSource>();
             throwCount = 0;
             _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+            _chickenSpawner = GameObject.FindGameObjectWithTag("ChickenSpawner").GetComponent<ChickenSpawner>();
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         }
 
@@ -115,6 +117,13 @@ namespace ChickenFarm
             feedStatic.SetActive(true);
             feedInstructionOne.SetActive(true);
             onFeedingInstruction = true;
+            StartCoroutine(SpawnChickens());
+        }
+
+        public IEnumerator SpawnChickens()
+        {
+            yield return new WaitForSeconds(0.5f);
+            _chickenSpawner.SpawnChicksAndChickens();
         }
         public void FinishFeed()
         {
@@ -124,6 +133,7 @@ namespace ChickenFarm
         public void ResetFeeding()
         {
             throwCount = 0;
+            feedFinished = false;
         }
     }
 }

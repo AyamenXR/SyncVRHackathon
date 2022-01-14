@@ -27,6 +27,7 @@ namespace ChickenFarm
         {
             SpawnAnimals(numberOfChicks, chick, chickParent);
             SpawnAnimals(numberOfChickens, chicken, chickenParent);
+            Debug.Log(numberOfChickens + "," + numberOfChicks + "Spawned");
         }
 
         private void SpawnAnimals(int numberOfAnimals, GameObject animal, Transform parent)

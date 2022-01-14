@@ -12,6 +12,7 @@ namespace ChickenFarm
         private void Start()
         {
             _sortingManager = GameObject.FindGameObjectWithTag("SortingManager").GetComponent<SortingManager>();
+            isSorted = false;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -26,10 +27,10 @@ namespace ChickenFarm
                     }
                 }
             }
-            else
-            {
-                Debug.Log("not in sorting");
-            }
+            //else
+            //{
+            //    Debug.Log("not in sorting");
+            //}
         }
     }
 }

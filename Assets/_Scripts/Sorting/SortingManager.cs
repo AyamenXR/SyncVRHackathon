@@ -19,7 +19,7 @@ namespace ChickenFarm
         public int sortedAnimalCount;
         private int _animalCount;
         private bool isOnSortingInstruction;
-        public float releaseTime = 0.5f;
+        public float releaseTime = 0.3f;
         public float scaleRatio = 0.5f;
 
         private AudioSource _grabAudio;
@@ -33,21 +33,30 @@ namespace ChickenFarm
 
         void Start()
         {
-            chicks = GameObject.FindGameObjectsWithTag("Chick");
-            chickens = GameObject.FindGameObjectsWithTag("Chicken");
+            //chicks = GameObject.FindGameObjectsWithTag("Chick");
+            //chickens = GameObject.FindGameObjectsWithTag("Chicken");
             _grabAudio = GetComponent<AudioSource>();
 
             _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
             _chickenSpawner = GameObject.FindGameObjectWithTag("ChickenSpawner").GetComponent<ChickenSpawner>();
-            _animalCount = _chickenSpawner.numberOfChickens + _chickenSpawner.numberOfChicks;
+            isCompleted = true;
+
+            chicks = GameObject.FindGameObjectsWithTag("Chick");
+            chickens = GameObject.FindGameObjectsWithTag("Chicken");
+
         }
         private void Update()
         {
             if (sortedAnimalCount == _animalCount && !isCompleted)
             {
-                _gameManager.CompleteSorting();
+                StartCoroutine(WaitToDestroyAnimals());
                 isCompleted = true;
             }
+        }
+        public IEnumerator WaitToDestroyAnimals() //to fix bug : The object of type 'GameObject' has been destroyed but you are still trying to access it.
+        {
+            yield return new WaitForSeconds(1);
+            _gameManager.CompleteSorting();
         }
 
         public void ReadyToSort()
@@ -58,16 +67,27 @@ namespace ChickenFarm
 
             sortedAnimalCount = 0;
             isOnSortingInstruction = true;
+            isCompleted = false;
+
+            chicks = GameObject.FindGameObjectsWithTag("Chick");
+            chickens = GameObject.FindGameObjectsWithTag("Chicken");
+            _animalCount = _chickenSpawner.numberOfChickens + _chickenSpawner.numberOfChicks;
         }
 
         public void FinishSorting()
         {
+            rightHoldPos.SetActive(false);
+            leftHoldPos.SetActive(false);
             sortingStatic.SetActive(false);
+            DestroyAnimals();
         }
+
+
 
         //Move animal on the table
         public void MoveAnimalOnTable()
         {
+
             foreach (GameObject chick in chicks)
             {
                 //randomly generate animal position
@@ -140,7 +160,7 @@ namespace ChickenFarm
         private IEnumerator Release(GameObject animal)
         {
             yield return new WaitForSeconds(releaseTime);
-            animal.transform.parent = null;
+            animal.transform.SetParent(null);
 
             if (animal.tag == "Chicken")
             {
@@ -174,6 +194,7 @@ namespace ChickenFarm
         public void ResetSorting()
         {
             sortedAnimalCount = 0;
+            isCompleted = false;
         }
 
 

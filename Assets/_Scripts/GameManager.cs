@@ -116,19 +116,12 @@ namespace ChickenFarm
 
         public void Reset()
         {
+            onReset.Invoke();
+            eGameStatus = GameState.Intro;
             feedScore = 0;
-        //    GameObject[] touchUiButtons = GameObject.FindGameObjectsWithTag("TouchUiButton");
-        //    foreach (GameObject touchUiButton in touchUiButtons)
-        //    {
-        //        //touchUiButton.GetComponent<TouchUIButton>().ResetTouchUIButton();
-        //        //touchUiButton.GetComponent<Image>().enabled = true;
-        //        //touchUiButton.GetComponent<Collider>().enabled = true;
-        //        //touchUiButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-        //        Debug.Log("button resetted");
-        //    }
-        //}
-
+            WhenAnimalFed();
+            sortingTime = 0;
+        }
     }
-
 }
 
