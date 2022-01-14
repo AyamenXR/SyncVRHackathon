@@ -6573,7 +6573,7 @@ MonoBehaviour:
   eggParent: {fileID: 964052675}
   isHolding: 0
   releaseTime: 0.5
-  tableSize: {x: 1.2, y: 0.2, z: 0.3}
+  tableSize: {x: 1, y: 0.2, z: 0.2}
   remainCollectTime: 30
   collectingScoreText: {fileID: 467197701}
   collectedEggCount: 0
@@ -28024,7 +28024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2123674665
 Transform:
   m_ObjectHideFlags: 0
@@ -28581,8 +28581,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3278593233520597106}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.2, z: 0.89}
-  m_LocalScale: {x: 0.62197, y: 1, z: 0.6462}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0.715}
+  m_LocalScale: {x: 0.62197, y: 1, z: 0.37502217}
   m_Children:
   - {fileID: 3620390777319669206}
   - {fileID: 492009277}
@@ -28699,7 +28699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3855504319029612915}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.175, z: -0.77}
+  m_LocalPosition: {x: 0, y: 1.175, z: -0.693}
   m_LocalScale: {x: 3.3289, y: 1.0323392, z: 0.09214425}
   m_Children: []
   m_Father: {fileID: 3272898100492864738}

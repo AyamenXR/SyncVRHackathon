@@ -19,7 +19,7 @@ namespace ChickenFarm
         public int sortedAnimalCount;
         private int _animalCount;
         private bool isOnSortingInstruction;
-        public float releaseTime = 0.3f;
+        public float releaseTime = 0.1f;
         public float scaleRatio = 0.5f;
 
         private AudioSource _grabAudio;
